@@ -14,6 +14,9 @@ following URLs and gives back a fake, randomlly generated ticket (which is proba
 * <tt>POST /login?service=some_url</tt> - Accepts the POST username parameter generated from the login page (or your own code if you prefer) and redirects to the service stored via <tt>GET /login</tt>. You can override the stored service by providing a new one as an optional parameter.
 * <tt>GET /logout?service=some_url</tt> - Clears the saved data and redirects to the requested service.
 * <tt>GET /validate?ticket=12345-67890-12345-67890</tt> - If the ticket is found, it prints out <tt>"yes\n#{username}"</tt>. Otherwise, it prints out <tt>no</tt>.
+* <tt>GET /proxyValidate?service-some_url&ticket=12345-67890-12345-67890</tt> - Hacky CAS 2.0 feature that as of now gives an approval for anything as long as the ticket is found.
+
+I am currently trying to hack in some features of CAS 2.0 to make this usable for my own projects. I am following the CAS 2.0 and 3.0 spec followed here.[http://jasig.github.io/cas/development/protocol/CAS-Protocol-Specification.html]
 
 == Development Plan
 

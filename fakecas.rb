@@ -123,3 +123,26 @@ get '/validate' do
   end
 
 end
+
+# hack in some CAS 2.0 features?
+get '/proxyValidate' do
+
+ticket = params['ticket']
+data = CACHE.get(ticket)
+service_url = "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
+
+raise "Login ticket not in the system. Try logging in again." if data.nil?
+
+# send back this thumbs-up response for now
+"<cas:serviceResponse xmlns:cas=\"#{service_url}\"> 
+    <cas:authenticationSuccess>
+      <cas:user>#{data[:username]}</cas:user>
+      <cas:proxyGrantingTicket>#{ticket}</cas:proxyGrantingTicket>
+      <cas:proxies>
+        <cas:proxy></cas:proxy>
+        <cas:proxy></cas:proxy>
+      </cas:proxies>
+    </cas:authenticationSuccess> 
+  </cas:serviceResponse>"
+
+end
